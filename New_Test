@@ -1,0 +1,62 @@
+
+
+
+import java.util.Scanner;
+
+public class New_Test {
+    public static void main(String[] args) {
+        //делаем значения для арабского
+        //даем определение совертеру
+        Converter converter = new Converter();
+        String[] actions = {"+", "-", "/", "*"}; // массив для операций арфифметики
+        String[] regexActions = {"\\+", "-", "/", "\\*"}; // ЭКРАНИРОВАНИЕ деййствия для + и *
+        Scanner scn = new Scanner(System.in);
+        System.out.print("Введите выражение: ");
+        String exp = scn.nextLine();
+        int actionIndex=-1;
+        for (int i = 0; i < actions.length; i++) {
+            if(exp.contains(actions[i])){
+                actionIndex = i;
+                break;
+            }
+        }
+        if(actionIndex==-1){
+            System.out.println("Ошибка. ВВедите арифметическое действие.");
+            return;
+        }
+        //"2-4".split("-")-> {"2", "4"}
+        String[] data = exp.split(regexActions[actionIndex]);
+        //определиние формата в котором пишет пользователь тру, фолс.
+        if(converter.isRoman(data[0]) == converter.isRoman(data[1])){
+            int a,b;
+
+            //конвертация
+            a = Integer.parseInt(data[0]);
+            b = Integer.parseInt(data[1]);
+
+            // действие арифметич
+            int result;
+            switch (actions[actionIndex]){
+                case "+":
+                    result = a+b;
+                    break;
+                case "-":
+                    result = a-b;
+                    break;
+                case "*":
+                    result = a*b;
+                    break;
+                default:
+                    result = a/b;
+                    break;
+            }
+            //вывод результата
+            System.out.println(result);
+
+        }else{
+            System.out.println("Введи корректные числа");
+        }
+
+
+    }
+}
